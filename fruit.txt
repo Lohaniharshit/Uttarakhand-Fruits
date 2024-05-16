@@ -1,0 +1,19 @@
+harvest.py --regions
+stacked bar graph
+
+
+harvest.py --fruit=apple -- seasons
+command line program
+-- regions : all regions
+--regions=Pauri
+--fruits
+
+--fruits=Peach
+csv
+matplotlib
+Argparse
+unittest
+
+
+numpy : Do not use
+statistics

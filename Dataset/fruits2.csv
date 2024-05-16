@@ -1,0 +1,17 @@
+Fruit,Avg. Altitude (meters),Soil Type,Major Growing Region,Season,Month,Avg. Market Price (per kg) (in rupees)
+Apple,2250,Loamy,"Shimla, Nainital, Almora",Winter,August - October,80
+Peach,1500,Sandy,"Mukteshwar, Ranikhet, Ramgarh",Summer,May - July,60
+Plum,1650,Clayey,"Haldwani, Bhimtal, Bageshwar",Summer,June - August,70
+Pear,1833,Loamy,"Pithoragarh, Champawat, Tehri",Winter,September - November,95
+Apricot,1667,Sandy,"Almora, Pauri, Rudraprayag",Summer,May - July,65
+Strawberry,750,Sandy-Loam,"Dehradun, Haridwar, Udham Singh Nagar",Winter,March - June,115
+Kiwi,1500,Loamy,"Pithoragarh, Champawat, Nainital",Winter,October - February,150
+Cherry,1833,Loamy,"Bageshwar, Pithoragarh, Chamoli",Spring,April - June,140
+Orange,750,Loamy,"Dehradun, Haridwar, Rishikesh",Winter,November - February,90
+Mango,750,Loamy,"Dehradun, Haridwar, Rishikesh",Summer,May - July,100
+Banana,500,Sandy,"Udham Singh Nagar, Haridwar, Nainital",Summer,June - August,40
+Rhododendron,1500,Loamy,"Almora, Pauri, Chamoli",Spring,March - May,N/A
+Hisalu,1800,Loamy,"Nainital, Bhimtal, Mukteshwar",Summer,June - August,50
+Kafal,2000,Sandy,Kumaon Region,Spring,April - June,N/A
+Kilmode,1500,Loamy,Kumaon Region,Summer,May - July,N/A
+Ghingaru,1200,Sandy,South Eastern Uttarakhand,Summer,June - August,N/A

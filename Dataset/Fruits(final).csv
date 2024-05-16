@@ -1,0 +1,17 @@
+Fruit,Avg. Altitude (meters),Soil Type,Major Growing Region,Season,Month,Avg. Market Price (per kg) (₹),Jan (%),Feb (%),Mar (%),Apr (%),May (%),Jun (%),Jul (%),Aug (%),Sep (%),Oct (%),Nov (%),Dec (%)
+Apple,2250,Loamy,"Shimla, Nainital, Almora",Winter,August - October,80,10,0,0,0,0,0,0,20,15,15,0,20
+Peach,1500,Sandy,"Mukteshwar, Ranikhet, Ramgarh",Summer,May - July,60,0,0,0,0,10,15,15,20,20,10,0,10
+Plum,1650,Clayey,"Haldwani, Bhimtal, Bageshwar",Summer,June - August,70,0,0,0,0,10,15,20,25,20,10,5,5
+Pear,1833,Loamy,"Pithoragarh, Champawat, Tehri",Winter,September - November,95,0,0,0,20,15,10,10,15,10,5,5,10
+Apricot,1667,Sandy,"Almora, Pauri, Rudraprayag",Summer,May - July,65,0,0,0,0,10,15,20,25,20,5,0,5
+Strawberry,750,Sandy-Loam,"Dehradun, Haridwar, Udham Singh Nagar",Winter,March - June,115,5,5,10,15,20,20,15,10,0,0,0,0
+Kiwi,1500,Loamy,"Pithoragarh, Champawat, Nainital",Winter,October - February,150,5,5,10,15,20,20,15,10,0,0,0,0
+Cherry,1833,Loamy,"Bageshwar, Pithoragarh, Chamoli",Spring,April - June,140,5,5,10,15,20,20,15,10,0,0,0,0
+Orange,750,Loamy,"Dehradun, Haridwar, Rishikesh",Winter,November - February,90,5,5,10,15,20,20,15,10,0,0,0,0
+Mango,750,Loamy,"Dehradun, Haridwar, Rishikesh",Summer,May - July,100,5,5,10,15,20,20,15,10,0,0,0,0
+Banana,500,Sandy,"Udham Singh Nagar, Haridwar, Nainital",Summer,June - August,40,5,5,10,15,20,20,15,10,0,0,0,0
+Rhododendron,1500,Loamy,"Almora, Pauri, Chamoli",Spring,March - May,N/A,5,5,10,15,20,20,15,10,0,0,0,0
+Hisalu,1800,Loamy,"Nainital, Bhimtal, Mukteshwar",Summer,June - August,50,5,5,10,15,20,20,15,10,0,0,0,0
+Kafal,2000,Sandy,Kumaon Region,Spring,April - June,N/A,5,5,10,15,20,20,15,10,0,0,0,0
+Kilmode,1500,Loamy,Kumaon Region,Summer,May - July,N/A,5,5,10,15,20,20,15,10,0,0,0,0
+Ghingaru,1200,Sandy,South Eastern Uttarakhand,Summer,June - August,N/A,5,5,10,15,20,20,15,10,0,0,0,0
