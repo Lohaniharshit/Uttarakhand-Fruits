@@ -146,6 +146,8 @@ def main():
             print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
 
         elif query.lower() == "fruit":
+            for i in fruits:
+                print(i)
             n = input("Enter fruit name: ").strip()
             fruit_key = None
             for key, value in fruit_dict.items():
