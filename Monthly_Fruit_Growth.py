@@ -1,14 +1,10 @@
-import csv
 import matplotlib.pyplot as plt
-import argparse
 
 
-with open('Dataset/Fruits(final).csv','r') as fruit:
-    read=csv.DictReader(fruit)
+def monthly_fruit_growth():
+
     #Retrive Column names from fruit
     headers=read.fieldnames
-
-
 
     places=[]
     fruits=[]
