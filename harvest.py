@@ -91,6 +91,7 @@ def main():
         fruits = []
         season = []
         month = []
+        regions = []
         reg = {}
         seas = {}
         month_percent = {}
@@ -129,34 +130,39 @@ def main():
         month_key = list(month_percent.keys())
         for i in month_percent.values():
             month_val.append(i[0])
+        #
 
-        fruit_dict = {i: fruits[i] for i in range(len(fruits))}
+        #
 
-        n = input("Enter fruit name: ").strip()
-        fruit_key = None
-        for key, value in fruit_dict.items():
-            if value.lower() == n.lower():
-                fruit_key = key
-                break
-
-        if fruit_key is not None:
-            k = []
-            p = []
-            for key in month_percent:
-                p.append(key)
-                k.append(int(month_percent[key][fruit_key]))
-
-            monthly_fruit_growth(n, p, k)
-        else:
-            print(f"Fruit '{n}' not found in the dataset.")
+        fruit_dict = {}
+        for i in range(len(fruits)):
+            fruit_dict[i] = fruits[i]
 
         query = input("Choose Region or Fruit: ").strip()
         if query.lower() == "region":
+            print(regions)
             query_region = input("Enter region name: ").strip()
             fruits_in_region = get_fruits_by_region(data, query_region)
             print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
 
         elif query.lower() == "fruit":
+            n = input("Enter fruit name: ").strip()
+            fruit_key = None
+            for key, value in fruit_dict.items():
+                if value.lower() == n.lower():
+                    fruit_key = key
+                    break
+
+            if fruit_key is not None:
+                k = []
+                p = []
+                for key in month_percent:
+                    p.append(key)
+                    k.append(int(month_percent[key][fruit_key]))
+
+            monthly_fruit_growth(n, p, k)
+        else:
+            print(f"Fruit '{n}' not found in the dataset.")
             seasonwisefruits(data)
             soiltype(data)
 
