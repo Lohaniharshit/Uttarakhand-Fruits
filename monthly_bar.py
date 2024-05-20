@@ -80,14 +80,16 @@ with open('Dataset/Fruits(final).csv','r') as fruit:
     p=[]
     for key in month_percent:
         p.append(key)
-        k.append(month_percent[key][fruit_key])
+        k.append(int(month_percent[key][fruit_key]))
     print(k)
     print(p)
     #Plotting Fruit% vs 
-    plt.bar(p,k)
+    plt.bar(p, k, color='skyblue')
     plt.xlabel("Months")
     plt.ylabel("Percentage Growth")
-    plt.yticks(['0','5','10','15','20','25','30','35','40','45','50'])
+    plt.title(f"Growth Percentage of {n}: ")
+
+    ticks=[0,5,10,15,20,25,30]
+    plt.yticks(range(0,50,5))
+    plt.xticks(rotation=45)
     plt.show()
-
-
