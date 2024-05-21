@@ -1,27 +1,33 @@
 import csv
 import matplotlib.pyplot as plt
- 
+from typing import List, Dict
+
 FILE_PATH = "Dataset/Fruits(final).csv"
- 
- 
-def monthly_fruit_growth(n, p, k):
+
+def monthly_fruit_growth(n: str, p: List[str], k: List[int]) -> None:
     """
     Plot the monthly growth percentage of a given fruit.
+
+    @param n: Name of the fruit.
+    @param p: List of months.
+    @param k: List of growth percentages corresponding to the months.
+    @returns: None
     """
     plt.bar(p, k, color="skyblue")
     plt.xlabel("Months")
     plt.ylabel("Percentage Growth")
     plt.title(f"Growth Percentage of {n}")
- 
+
     plt.yticks(range(0, 31, 5))  # Ensuring y-ticks are displayed at intervals of 5
     plt.xticks(rotation=45)
     plt.show()
- 
-def seasonwisefruits(data) -> None:
+
+def seasonwisefruits(data: List[Dict[str, str]]) -> None:
     """
     Analyzes the distribution of fruits across different seasons and visualizes it as a pie chart.
-    @parameters: 
-    @returns:
+
+    @param data: List of dictionaries representing rows of the CSV file.
+    @returns: None
     """
     winter = 0
     summer = 0
@@ -42,12 +48,12 @@ def seasonwisefruits(data) -> None:
     plt.title("Season-wise Distribution of Fruits")
     plt.show()
 
-
-def soiltype(data) -> None:
+def soiltype(data: List[Dict[str, str]]) -> None:
     """
     Analyzes the distribution of different soil types and visualizes it as a pie chart.
-    @returns:
-    @parameters:
+
+    @param data: List of dictionaries representing rows of the CSV file.
+    @returns: None
     """
     loamy = 0
     sandy = 0
@@ -67,28 +73,39 @@ def soiltype(data) -> None:
     plt.pie(ratios, labels=labels, autopct="%1.1f%%")
     plt.title("Soil-wise Distribution of Fruits")
     plt.show()
- 
-def get_fruits_by_region(data, query_region, month_percent):
+
+def get_fruits_by_region(data: List[Dict[str, str]], query_region: str, month_percent: Dict[str, Dict[str, str]]) -> List[str]:
+    """
+    Retrieves fruits grown in a specific region and plots their availability.
+
+    @param data: List of dictionaries representing rows of the CSV file.
+    @param query_region: The region to query.
+    @param month_percent: Dictionary with monthly percentage data for each fruit.
+    @returns: List of fruits grown in the queried region.
+    """
     fruits_in_region = []
     query_region = query_region.lower().strip()
- 
+
     for fruit in data:
         regions = fruit["Major Growing Region"].lower().split(",")
         for region in regions:
             if region.lower().strip() == query_region:
                 fruits_in_region.append(fruit["Fruit"])
                 break
- 
-    # Call plot_fruit_availability to generate graphs for each fruit
+
     plot_fruit_availability(data, fruits_in_region, month_percent)
- 
     return fruits_in_region
- 
- 
-def plot_fruit_availability(reader, fruit_list, month_percent):
-    # Iterate through each row in the CSV
+
+def plot_fruit_availability(reader: List[Dict[str, str]], fruit_list: List[str], month_percent: Dict[str, Dict[str, str]]) -> None:
+    """
+    Plots the availability of fruits based on the monthly percentage data.
+
+    @param reader: List of dictionaries representing rows of the CSV file.
+    @param fruit_list: List of fruits to plot.
+    @param month_percent: Dictionary with monthly percentage data for each fruit.
+    @returns: None
+    """
     for row in reader:
-        # Check if the current fruit is in the fruit_list
         if row['Fruit'].lower() in [fruit.lower() for fruit in fruit_list]:
             k = []
             p = []
@@ -96,34 +113,36 @@ def plot_fruit_availability(reader, fruit_list, month_percent):
                 p.append(key)
                 k.append(int(month_percent[key][row["Fruit"]]))
             monthly_fruit_growth(row['Fruit'], p, k)
- 
- 
-def main():
+
+def main() -> None:
+    """
+    Main function to run the script. It loads the CSV data, extracts months and percentages, and interacts with the user.
+
+    @returns: None
+    """
     with open(FILE_PATH, "r") as csvfile:
         reader = csv.DictReader(csvfile)
         data = list(reader)  # Convert reader to list of dictionaries
         headers = reader.fieldnames
- 
+
         places = []
         fruits = []
         season = []
         month = []
- 
+
         for line in data:
             fruits.append(line["Fruit"])
             places.append(line["Major Growing Region"])
             season.append(line["Season"])
             month.append(line["Month"])
- 
-        
-        month_percent = {}
 
+        month_percent = {}
         for header in headers[7:]:
             percentages = {}
             for row in data:
                 percentages[row["Fruit"]] = row[header]
             month_percent[header] = percentages
- 
+
         query = input("Choose Region or Fruit: ").strip()
         if query.lower() == "region":
             regions_list = set()
@@ -140,8 +159,8 @@ def main():
             else:
                 fruits_in_region = get_fruits_by_region(data, query_region, month_percent)
                 print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
-                plot_fruit_availability(reader, fruits_in_region, month_percent)
- 
+                plot_fruit_availability(data, fruits_in_region, month_percent)
+
         elif query.lower() == "fruit":
             for i in fruits:
                 print(i)
@@ -156,11 +175,10 @@ def main():
                 soiltype(data)
             else:
                 print(f"Fruit '{n}' not found in the dataset.")
- 
+
         else:
             print(f"Invalid choice: {query}")
             return
- 
- 
+
 if __name__ == "__main__":
     main()
