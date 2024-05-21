@@ -148,6 +148,7 @@ def main():
         elif query.lower() == "fruit":
             for i in fruits:
                 print(i)
+            print("All")
             n = input("Enter fruit name: ").strip()
             fruit_key = None
             for key, value in fruit_dict.items():
