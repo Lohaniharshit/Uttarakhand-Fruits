@@ -160,12 +160,15 @@ def main():
 
         query = input("Choose Region or Fruit: ").strip()
         if query.lower() == "region":
-            print(places)
+            # Printing each Region's name
+            regions_list = set()
+            for regions in places:
+                for region in regions.split(','):
+                    regions_list.add(region.strip())
+            print(list(regions_list))
             query_region = input("Enter region name: ").strip()
             fruits_in_region = get_fruits_by_region(data, query_region)
             print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
-
-
         elif query.lower() == "fruit":
             #Printing list of Fruits
             for i in fruits:
