@@ -77,7 +77,27 @@ def get_fruits_by_region(data, query_region):
                 fruits_in_region.append(fruit["Fruit"])
                 break
 
+    plot_fruit_availability(data, fruits_in_region)
     return fruits_in_region
+
+def plot_fruit_availability(reader, fruit_list):
+    # Iterate through each row in the CSV
+    for row in reader:
+        # Check if the current fruit is in the fruit_list
+        if row['Fruit'].lower() in [fruit.lower() for fruit in fruit_list]:
+            plot_fruit(row)
+
+def plot_fruit(fruit_data):
+    months = ['Jan (%)', 'Feb (%)', 'Mar (%)', 'Apr (%)', 'May (%)', 'Jun (%)',
+              'Jul (%)', 'Aug (%)', 'Sep (%)', 'Oct (%)', 'Nov (%)', 'Dec (%)']
+    availability = [int(fruit_data[month].strip('%')) for month in months]
+
+    plt.figure(figsize=(10, 5))
+    plt.bar(months, availability)
+    plt.title(f'Seasonal Availability of {fruit_data["Fruit"]}')
+    plt.xlabel('Month')
+    plt.ylabel('Percentage Availability')
+    plt.show()
 
 
 def main():
@@ -144,6 +164,7 @@ def main():
             query_region = input("Enter region name: ").strip()
             fruits_in_region = get_fruits_by_region(data, query_region)
             print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
+
 
         elif query.lower() == "fruit":
             for i in fruits:
