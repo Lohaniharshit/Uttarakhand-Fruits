@@ -1,0 +1,40 @@
+# Uttarakhand Fruits Analysis
+
+This project analyzes and visualizes data related to the growth, distribution, and seasonal availability of various fruits in Uttarakhand. The data is sourced from a CSV file containing information on different fruits, including their growing regions, soil types, and monthly growth percentages.
+
+## Features
+
+- **Monthly Fruit Growth Visualization**: Plots the monthly growth percentage of a selected fruit.
+- **Season-wise Fruit Distribution**: Displays the distribution of fruits across different seasons as a pie chart.
+- **Soil Type Distribution**: Shows the distribution of different soil types for fruit cultivation as a pie chart.
+- **Region-wise Fruit Availability**: Lists and plots the availability of fruits in a selected region.
+
+## Requirements
+
+- Python 3.12.3
+- `matplotlib` library
+
+## Usage
+
+1. Place your CSV file (`Fruits(final).csv`) in the `Dataset` directory.
+2. Run the script:
+    ```sh
+    python3 harvest.py
+    ```
+3. Follow the prompts to choose between analyzing by region or fruit.
+
+
+## Running Tests
+
+```bash
+python test_harvest.py
+```
+
+## Contributing
+
+Contributions are welcome! If you find any bugs or have suggestions for
+improvements, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
