@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 FILE_PATH = "Dataset/Fruits(final).csv"
 
 
-def monthly_fruit_growth(n: str, p, k) -> None:
+def monthly_fruit_growth(fruit_query: str, month_names, monthly_data) -> None:
     """
     Plot the monthly growth percentage of a given fruit.
 
@@ -13,19 +13,20 @@ def monthly_fruit_growth(n: str, p, k) -> None:
     @param k: List of growth percentages corresponding to the months.
     @returns: None
     """
-    plt.bar(p, k, color="skyblue")
+    plt.bar(month_names, monthly_data, color="skyblue")
     plt.xlabel("Months")
     plt.ylabel("Percentage Growth")
-    plt.title(f"Growth Percentage of {n}")
+    plt.title(f"Growth Percentage of {fruit_query}")
 
-    plt.yticks(range(0, 31, 5))  # Ensuring y-ticks are displayed at intervals of 5
+    plt.yticks(range(0, 31, 5))
     plt.xticks(rotation=45)
     plt.show()
 
 
 def seasonwisefruits(data) -> None:
     """
-    Analyzes the distribution of fruits across different seasons and visualizes it as a pie chart.
+    Analyzes the distribution of fruits across different seasons and
+    visualizes it as a pie chart.
 
     @param data: List of dictionaries representing rows of the CSV file.
     @returns: None
@@ -52,7 +53,8 @@ def seasonwisefruits(data) -> None:
 
 def soiltype(data) -> None:
     """
-    Analyzes the distribution of different soil types and visualizes it as a pie chart.
+    Analyzes the distribution of different soil types and visualizes it as a
+    pie chart.
 
     @param data: List of dictionaries representing rows of the CSV file.
     @returns: None
@@ -83,7 +85,8 @@ def get_fruits_by_region(data, query_region: str):
 
     @param data: List of dictionaries representing rows of the CSV file.
     @param query_region: The region to query.
-    @param month_percent: Dictionary with monthly percentage data for each fruit.
+    @param month_percent: Dictionary with monthly percentage data for each
+     fruit.
     @returns: List of fruits grown in the queried region.
     """
     fruits_in_region = []
@@ -111,12 +114,12 @@ def plot_fruit_availability(reader, fruit_list, month_percent) -> None:
     """
     for row in reader:
         if row['Fruit'].lower() in [fruit.lower() for fruit in fruit_list]:
-            k = []
-            p = []
+            monthly_data = []
+            month_names = []
             for key in month_percent:
-                p.append(key)
-                k.append(int(month_percent[key][row["Fruit"]]))
-            monthly_fruit_growth(row['Fruit'], p, k)
+                month_names.append(key)
+                monthly_data.append(int(month_percent[key][row["Fruit"]]))
+            monthly_fruit_growth(row['Fruit'], month_names, monthly_data)
 
 
 def main() -> None:
@@ -157,8 +160,8 @@ def main() -> None:
             for i in regions_list:
                 print(i)
             print("All")
-            query_region = input("Enter region name: ").strip().lower()
-            if query_region == "all":
+            query_region = input("Enter region name: ").strip().capitalize()
+            if query_region == "All":
                 seasonwisefruits(data)
                 soiltype(data)
             elif query_region not in regions_list:
@@ -174,12 +177,12 @@ def main() -> None:
             print("All")
             fruit_query = input("Enter fruit name: ").strip().capitalize()
             if fruit_query in fruits:
-                p = list(month_percent.keys())
-                k = []
-                for key in p:
-                    k.append(int(month_percent[key][fruit_query]))
+                month_names = list(month_percent.keys())
+                monthly_data = []
+                for key in month_names:
+                    monthly_data.append(int(month_percent[key][fruit_query]))
 
-                monthly_fruit_growth(fruit_query, p, k)
+                monthly_fruit_growth(fruit_query, month_names, monthly_data)
             elif fruit_query == "All":
                 seasonwisefruits(data)
                 soiltype(data)
