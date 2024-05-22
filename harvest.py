@@ -141,7 +141,6 @@ def main() -> None:
             places.append(line["Major Growing Region"])
             season.append(line["Season"])
             month.append(line["Month"])
-
         month_percent = {}
         for header in headers[7:]:
             percentages = {}
@@ -174,7 +173,10 @@ def main() -> None:
             n = input("Enter fruit name: ").strip().capitalize()
             if n in fruits:
                 p = list(month_percent.keys())
-                k = [int(month_percent[key][n]) for key in p]
+                k = []
+                for key in p:
+                    k.append(int(month_percent[key][n]))
+
                 monthly_fruit_growth(n, p, k)
             elif n == "All":
                 seasonwisefruits(data)
