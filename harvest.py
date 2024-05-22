@@ -1,10 +1,10 @@
 import csv
 import matplotlib.pyplot as plt
-from typing import List, Dict
 
 FILE_PATH = "Dataset/Fruits(final).csv"
 
-def monthly_fruit_growth(n: str, p: List[str], k: List[int]) -> None:
+
+def monthly_fruit_growth(n: str, p, k) -> None:
     """
     Plot the monthly growth percentage of a given fruit.
 
@@ -22,7 +22,8 @@ def monthly_fruit_growth(n: str, p: List[str], k: List[int]) -> None:
     plt.xticks(rotation=45)
     plt.show()
 
-def seasonwisefruits(data: List[Dict[str, str]]) -> None:
+
+def seasonwisefruits(data) -> None:
     """
     Analyzes the distribution of fruits across different seasons and visualizes it as a pie chart.
 
@@ -48,7 +49,8 @@ def seasonwisefruits(data: List[Dict[str, str]]) -> None:
     plt.title("Season-wise Distribution of Fruits")
     plt.show()
 
-def soiltype(data: List[Dict[str, str]]) -> None:
+
+def soiltype(data) -> None:
     """
     Analyzes the distribution of different soil types and visualizes it as a pie chart.
 
@@ -74,7 +76,8 @@ def soiltype(data: List[Dict[str, str]]) -> None:
     plt.title("Soil-wise Distribution of Fruits")
     plt.show()
 
-def get_fruits_by_region(data: List[Dict[str, str]], query_region: str, month_percent: Dict[str, Dict[str, str]]) -> List[str]:
+
+def get_fruits_by_region(data, query_region: str):
     """
     Retrieves fruits grown in a specific region and plots their availability.
 
@@ -93,16 +96,17 @@ def get_fruits_by_region(data: List[Dict[str, str]], query_region: str, month_pe
                 fruits_in_region.append(fruit["Fruit"])
                 break
 
-    plot_fruit_availability(data, fruits_in_region, month_percent)
     return fruits_in_region
 
-def plot_fruit_availability(reader: List[Dict[str, str]], fruit_list: List[str], month_percent: Dict[str, Dict[str, str]]) -> None:
+
+def plot_fruit_availability(reader, fruit_list, month_percent) -> None:
     """
     Plots the availability of fruits based on the monthly percentage data.
 
     @param reader: List of dictionaries representing rows of the CSV file.
     @param fruit_list: List of fruits to plot.
-    @param month_percent: Dictionary with monthly percentage data for each fruit.
+    @param month_percent: Dictionary with monthly percentage data for
+                          each fruit.
     @returns: None
     """
     for row in reader:
@@ -114,9 +118,11 @@ def plot_fruit_availability(reader: List[Dict[str, str]], fruit_list: List[str],
                 k.append(int(month_percent[key][row["Fruit"]]))
             monthly_fruit_growth(row['Fruit'], p, k)
 
+
 def main() -> None:
     """
-    Main function to run the script. It loads the CSV data, extracts months and percentages, and interacts with the user.
+    Main function to run the script. It loads the CSV data, extracts months
+    and percentages, and interacts with the user.
 
     @returns: None
     """
@@ -157,7 +163,7 @@ def main() -> None:
                 seasonwisefruits(data)
                 soiltype(data)
             else:
-                fruits_in_region = get_fruits_by_region(data, query_region, month_percent)
+                fruits_in_region = get_fruits_by_region(data, query_region)
                 print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
                 plot_fruit_availability(data, fruits_in_region, month_percent)
 
@@ -165,12 +171,12 @@ def main() -> None:
             for i in fruits:
                 print(i)
             print("All")
-            n = input("Enter fruit name: ").strip().lower()
+            n = input("Enter fruit name: ").strip().capitalize()
             if n in fruits:
                 p = list(month_percent.keys())
                 k = [int(month_percent[key][n]) for key in p]
                 monthly_fruit_growth(n, p, k)
-            elif n == "all":
+            elif n == "All":
                 seasonwisefruits(data)
                 soiltype(data)
             else:
@@ -179,6 +185,7 @@ def main() -> None:
         else:
             print(f"Invalid choice: {query}")
             return
+
 
 if __name__ == "__main__":
     main()
