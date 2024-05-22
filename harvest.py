@@ -161,6 +161,8 @@ def main() -> None:
             if query_region == "all":
                 seasonwisefruits(data)
                 soiltype(data)
+            elif query_region not in regions_list:
+                print(f"Invalid Region :{query_region}")
             else:
                 fruits_in_region = get_fruits_by_region(data, query_region)
                 print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
@@ -170,19 +172,19 @@ def main() -> None:
             for i in fruits:
                 print(i)
             print("All")
-            n = input("Enter fruit name: ").strip().capitalize()
-            if n in fruits:
+            fruit_query = input("Enter fruit name: ").strip().capitalize()
+            if fruit_query in fruits:
                 p = list(month_percent.keys())
                 k = []
                 for key in p:
-                    k.append(int(month_percent[key][n]))
+                    k.append(int(month_percent[key][fruit_query]))
 
-                monthly_fruit_growth(n, p, k)
-            elif n == "All":
+                monthly_fruit_growth(fruit_query, p, k)
+            elif fruit_query == "All":
                 seasonwisefruits(data)
                 soiltype(data)
             else:
-                print(f"Fruit '{n}' not found in the dataset.")
+                print(f"Fruit '{fruit_query}' not found in the dataset.")
 
         else:
             print(f"Invalid choice: {query}")
