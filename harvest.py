@@ -1,126 +1,12 @@
 import csv
-import matplotlib.pyplot as plt
+import argparse
+from code.Monthly_plot import monthly_fruit_growth
+from code.Soiltype import soiltype
+from code.Seasonewisefruits import seasonwisefruits
+from code.Plotfruitavailability import plot_fruit_availability
+from code.Getfruitsbyregion import get_fruits_by_region
 
 FILE_PATH = "Dataset/Fruits(final).csv"
-
-
-def monthly_fruit_growth(fruit_query: str, month_names, monthly_data) -> None:
-    """
-    Plot the monthly growth percentage of a given fruit.
-
-    @param n: Name of the fruit.
-    @param p: List of months.
-    @param k: List of growth percentages corresponding to the months.
-    @returns: None
-    """
-    plt.bar(month_names, monthly_data, color="skyblue")
-    plt.xlabel("Months")
-    plt.ylabel("Percentage Growth")
-    plt.title(f"Growth Percentage of {fruit_query}")
-
-    plt.yticks(range(0, 31, 5))
-    plt.xticks(rotation=45)
-    plt.show()
-
-
-def seasonwisefruits(data) -> None:
-    """
-    Analyzes the distribution of fruits across different seasons and
-    visualizes it as a pie chart.
-
-    @param data: List of dictionaries representing rows of the CSV file.
-    @returns: None
-    """
-    winter = 0
-    summer = 0
-    spring = 0
-
-    for entry in data:
-        if entry["Season"] == "Winter":
-            winter += 1
-        elif entry["Season"] == "Summer":
-            summer += 1
-        elif entry["Season"] == "Spring":
-            spring += 1
-
-    labels = ["Winter", "Summer", "Spring"]
-    ratios = [winter, summer, spring]
-
-    plt.pie(ratios, labels=labels, autopct="%1.1f%%")
-    plt.title("Season-wise Distribution of Fruits")
-    plt.show()
-
-
-def soiltype(data) -> None:
-    """
-    Analyzes the distribution of different soil types and visualizes it as a
-    pie chart.
-
-    @param data: List of dictionaries representing rows of the CSV file.
-    @returns: None
-    """
-    loamy = 0
-    sandy = 0
-    clayey = 0
-
-    for entry in data:
-        if entry["Soil Type"] == "Loamy":
-            loamy += 1
-        elif entry["Soil Type"] == "Sandy":
-            sandy += 1
-        elif entry["Soil Type"] == "Clayey":
-            clayey += 1
-
-    labels = ["Loamy", "Sandy", "Clayey"]
-    ratios = [loamy, sandy, clayey]
-
-    plt.pie(ratios, labels=labels, autopct="%1.1f%%")
-    plt.title("Soil-wise Distribution of Fruits")
-    plt.show()
-
-
-def get_fruits_by_region(data, query_region: str):
-    """
-    Retrieves fruits grown in a specific region and plots their availability.
-
-    @param data: List of dictionaries representing rows of the CSV file.
-    @param query_region: The region to query.
-    @param month_percent: Dictionary with monthly percentage data for each
-     fruit.
-    @returns: List of fruits grown in the queried region.
-    """
-    fruits_in_region = []
-    query_region = query_region.lower().strip()
-
-    for fruit in data:
-        regions = fruit["Major Growing Region"].lower().split(",")
-        for region in regions:
-            if region.lower().strip() == query_region:
-                fruits_in_region.append(fruit["Fruit"])
-                break
-
-    return fruits_in_region
-
-
-def plot_fruit_availability(reader, fruit_list, month_percent) -> None:
-    """
-    Plots the availability of fruits based on the monthly percentage data.
-
-    @param reader: List of dictionaries representing rows of the CSV file.
-    @param fruit_list: List of fruits to plot.
-    @param month_percent: Dictionary with monthly percentage data for
-                          each fruit.
-    @returns: None
-    """
-    for row in reader:
-        if row['Fruit'].lower() in [fruit.lower() for fruit in fruit_list]:
-            monthly_data = []
-            month_names = []
-            for key in month_percent:
-                month_names.append(key)
-                monthly_data.append(int(month_percent[key][row["Fruit"]]))
-            monthly_fruit_growth(row['Fruit'], month_names, monthly_data)
-
 
 def main() -> None:
     """
@@ -145,11 +31,12 @@ def main() -> None:
             season.append(line["Season"])
             month.append(line["Month"])
         month_percent = {}
-        for header in headers[7:]:
-            percentages = {}
-            for row in data:
-                percentages[row["Fruit"]] = row[header]
-            month_percent[header] = percentages
+        if headers is not None:
+            for header in headers[7:]:
+                percentages = {}
+                for row in data:
+                    percentages[row["Fruit"]] = row[header]
+                month_percent[header] = percentages
 
         query = input("Choose Region or Fruit: ").strip()
         if query.lower() == "region":
