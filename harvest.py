@@ -15,6 +15,7 @@ def main() -> None:
     plots and data.
 
     @returns: None
+    """
     data, headers = reader_function()
     places, fruits = list_data_generator(data)
     month_percent = month_percent_generator(headers, data)
