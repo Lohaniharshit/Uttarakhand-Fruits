@@ -10,26 +10,38 @@ FILE_PATH = "Dataset/Fruits(final).csv"
 
 
 def main() -> None:
+    """
+    Main function to handle fruit or region queries and generate respective
+    plots and data.
 
-    data, headers = Readerfunction()
-    places, fruits = List_data_generator(data)
+    @returns: None
+    data, headers = reader_function()
+    places, fruits = list_data_generator(data)
     month_percent = month_percent_generator(headers, data)
 
-    parser = argparse.ArgumentParser(description='Provide either a fruit name or a region name')
+    parser = argparse.ArgumentParser(
+        description='Provide either a fruit name or a region name'
+        )
     # Define the mutually exclusive group
     group = parser.add_mutually_exclusive_group(required=True)
     fruits.append('All')
     places.add('All')
 
     # Add the arguments to the group
-    group.add_argument('--fruit', help='Enter name of the fruit', choices=fruits)
-    group.add_argument('--region', help='Enter name of the region', choices=places)
+    group.add_argument(
+        '--fruit',
+        help='Enter name of the fruit',
+        choices=fruits
+                        )
+    group.add_argument(
+        '--region',
+        help='Enter name of the region',
+        choices=places)
 
     args = parser.parse_args()
 
     if args.fruit:
-        fruit_query = args.fruit
-        fruit_query.capitalize()
+        fruit_query = args.fruit.capitalize()
         if fruit_query in fruits:
             month_names = list(month_percent.keys())
             monthly_data = []
@@ -37,12 +49,12 @@ def main() -> None:
                 monthly_data.append(int(month_percent[key][fruit_query]))
 
             monthly_fruit_growth(fruit_query, month_names, monthly_data)
+            monthly_fruit_growth(fruit_query, month_names, monthly_data)
         elif fruit_query == "All":
             seasonwisefruits(data)
             soiltype(data)
     elif args.region:
-        region_query = args.region
-        region_query.capitalize()
+        region_query = args.region.capitalize()
         if region_query == "All":
             seasonwisefruits(data)
             soiltype(data)
@@ -52,15 +64,27 @@ def main() -> None:
             plot_fruit_availability(data, fruits_in_region, month_percent)
 
 
-def Readerfunction():
-    with open(FILE_PATH, "r") as csvfile:
+def reader_function() -> tuple:
+    """
+    Reads the CSV file and returns the data and headers.
+
+    @returns: A tuple containing a list of dictionaries with the data and
+              a list of headers.
+    """
+    with open(FILE_PATH, "r", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
-        data = list(reader)  # Convert reader to list of dictionaries
+        data = list(reader)
         headers = reader.fieldnames
         return data, headers
 
 
-def List_data_generator(data):
+def list_data_generator(data: list) -> tuple:
+    """
+    Generates lists of places and fruits from the data.
+
+    @param data: List of dictionaries containing the CSV data.
+    @returns: A tuple containing a set of regions and a list of fruits.
+    """
     places = []
     fruits = []
     for line in data:
@@ -73,7 +97,15 @@ def List_data_generator(data):
     return regions_list, fruits
 
 
-def month_percent_generator(headers, data):
+def month_percent_generator(headers: list, data: list) -> dict:
+    """
+    Generates a dictionary with month-wise percentages for each fruit.
+
+    @param headers: List of headers from the CSV file.
+    @param data: List of dictionaries containing the CSV data.
+    @returns: A dictionary with month names as keys and dictionaries of
+              fruit percentages as values.
+    """
     month_percent = {}
     for header in headers[7:]:
         percentages = {}
