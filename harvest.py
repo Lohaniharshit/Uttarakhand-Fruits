@@ -8,77 +8,79 @@ from code.Getfruitsbyregion import get_fruits_by_region
 
 FILE_PATH = "Dataset/Fruits(final).csv"
 
-def main() -> None:
-    """
-    Main function to run the script. It loads the CSV data, extracts months
-    and percentages, and interacts with the user.
 
-    @returns: None
-    """
+def main() -> None:
+
+    data, headers = Readerfunction()
+    places, fruits = List_data_generator(data)
+    month_percent = month_percent_generator(headers, data)
+
+    parser = argparse.ArgumentParser(description='Provide either a fruit name or a region name')
+    # Define the mutually exclusive group
+    group = parser.add_mutually_exclusive_group(required=True)
+    fruits.append('All')
+    places.add('All')
+
+    # Add the arguments to the group
+    group.add_argument('--fruit', help='Enter name of the fruit', choices=fruits)
+    group.add_argument('--region', help='Enter name of the region', choices=places)
+
+    args = parser.parse_args()
+
+    if args.fruit:
+        fruit_query = args.fruit
+        fruit_query.capitalize()
+        if fruit_query in fruits:
+            month_names = list(month_percent.keys())
+            monthly_data = []
+            for key in month_names:
+                monthly_data.append(int(month_percent[key][fruit_query]))
+
+            monthly_fruit_growth(fruit_query, month_names, monthly_data)
+        elif fruit_query == "All":
+            seasonwisefruits(data)
+            soiltype(data)
+    elif args.region:
+        region_query = args.region
+        region_query.capitalize()
+        if region_query == "All":
+            seasonwisefruits(data)
+            soiltype(data)
+        else:
+            fruits_in_region = get_fruits_by_region(data, region_query)
+            print(f"Fruits in {region_query}: {', '.join(fruits_in_region)}")
+            plot_fruit_availability(data, fruits_in_region, month_percent)
+
+
+def Readerfunction():
     with open(FILE_PATH, "r") as csvfile:
         reader = csv.DictReader(csvfile)
         data = list(reader)  # Convert reader to list of dictionaries
         headers = reader.fieldnames
+        return data, headers
 
-        places = []
-        fruits = []
-        season = []
-        month = []
 
-        for line in data:
-            fruits.append(line["Fruit"])
-            places.append(line["Major Growing Region"])
-            season.append(line["Season"])
-            month.append(line["Month"])
-        month_percent = {}
-        if headers is not None:
-            for header in headers[7:]:
-                percentages = {}
-                for row in data:
-                    percentages[row["Fruit"]] = row[header]
-                month_percent[header] = percentages
+def List_data_generator(data):
+    places = []
+    fruits = []
+    for line in data:
+        fruits.append(line["Fruit"])
+        places.append(line["Major Growing Region"])
+    regions_list = set()
+    for regions in places:
+        for region in regions.split(','):
+            regions_list.add(region.strip())
+    return regions_list, fruits
 
-        query = input("Choose Region or Fruit: ").strip()
-        if query.lower() == "region":
-            regions_list = set()
-            for regions in places:
-                for region in regions.split(','):
-                    regions_list.add(region.strip())
-            for i in regions_list:
-                print(i)
-            print("All")
-            query_region = input("Enter region name: ").strip().capitalize()
-            if query_region == "All":
-                seasonwisefruits(data)
-                soiltype(data)
-            elif query_region not in regions_list:
-                print(f"Invalid Region :{query_region}")
-            else:
-                fruits_in_region = get_fruits_by_region(data, query_region)
-                print(f"Fruits in {query_region}: {', '.join(fruits_in_region)}")
-                plot_fruit_availability(data, fruits_in_region, month_percent)
 
-        elif query.lower() == "fruit":
-            for i in fruits:
-                print(i)
-            print("All")
-            fruit_query = input("Enter fruit name: ").strip().capitalize()
-            if fruit_query in fruits:
-                month_names = list(month_percent.keys())
-                monthly_data = []
-                for key in month_names:
-                    monthly_data.append(int(month_percent[key][fruit_query]))
-
-                monthly_fruit_growth(fruit_query, month_names, monthly_data)
-            elif fruit_query == "All":
-                seasonwisefruits(data)
-                soiltype(data)
-            else:
-                print(f"Fruit '{fruit_query}' not found in the dataset.")
-
-        else:
-            print(f"Invalid choice: {query}")
-            return
+def month_percent_generator(headers, data):
+    month_percent = {}
+    for header in headers[7:]:
+        percentages = {}
+        for row in data:
+            percentages[row["Fruit"]] = row[header]
+        month_percent[header] = percentages
+    return month_percent
 
 
 if __name__ == "__main__":
