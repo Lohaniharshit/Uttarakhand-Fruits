@@ -41,25 +41,25 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.fruit:
-        fruit_query = args.fruit.capitalize()
-        if fruit_query in fruits:
+        if args.fruit in fruits:
             month_names = list(month_percent.keys())
             monthly_data = []
             for key in month_names:
-                monthly_data.append(int(month_percent[key][fruit_query]))
+                monthly_data.append(int(month_percent[key][args.fruit]))
 
             monthly_fruit_growth(fruit_query, month_names, monthly_data)
         elif fruit_query == "All":
+            monthly_fruit_growth(args.fruit, month_names, monthly_data)
+        elif args.fruit == "All":
             seasonwisefruits(data)
             soiltype(data)
     elif args.region:
-        region_query = args.region.capitalize()
-        if region_query == "All":
+        if args.region == "All":
             seasonwisefruits(data)
             soiltype(data)
         else:
-            fruits_in_region = get_fruits_by_region(data, region_query)
-            print(f"Fruits in {region_query}: {', '.join(fruits_in_region)}")
+            fruits_in_region = get_fruits_by_region(data, args.region)
+            print(f"Fruits in {args.region}: {', '.join(fruits_in_region)}")
             plot_fruit_availability(data, fruits_in_region, month_percent)
 
 if __name__ == "__main__":
