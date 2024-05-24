@@ -1,13 +1,12 @@
-import csv
 import argparse
+from code.List_data_generator import list_data_generator
+from code.Month_percent_generator import month_percent_generator
+from code.Reader import reader_function
 from code.Monthly_plot import monthly_fruit_growth
 from code.Soiltype import soiltype
 from code.Seasonewisefruits import seasonwisefruits
 from code.Plotfruitavailability import plot_fruit_availability
 from code.Getfruitsbyregion import get_fruits_by_region
-
-FILE_PATH = "Dataset/Fruits(final).csv"
-
 
 def main() -> None:
     """
@@ -50,7 +49,6 @@ def main() -> None:
                 monthly_data.append(int(month_percent[key][fruit_query]))
 
             monthly_fruit_growth(fruit_query, month_names, monthly_data)
-            monthly_fruit_growth(fruit_query, month_names, monthly_data)
         elif fruit_query == "All":
             seasonwisefruits(data)
             soiltype(data)
@@ -63,58 +61,6 @@ def main() -> None:
             fruits_in_region = get_fruits_by_region(data, region_query)
             print(f"Fruits in {region_query}: {', '.join(fruits_in_region)}")
             plot_fruit_availability(data, fruits_in_region, month_percent)
-
-
-def reader_function() -> tuple:
-    """
-    Reads the CSV file and returns the data and headers.
-
-    @returns: A tuple containing a list of dictionaries with the data and
-              a list of headers.
-    """
-    with open(FILE_PATH, "r", encoding="utf-8") as csvfile:
-        reader = csv.DictReader(csvfile)
-        data = list(reader)
-        headers = reader.fieldnames
-        return data, headers
-
-
-def list_data_generator(data: list) -> tuple:
-    """
-    Generates lists of places and fruits from the data.
-
-    @param data: List of dictionaries containing the CSV data.
-    @returns: A tuple containing a set of regions and a list of fruits.
-    """
-    places = []
-    fruits = []
-    for line in data:
-        fruits.append(line["Fruit"])
-        places.append(line["Major Growing Region"])
-    regions_list = set()
-    for regions in places:
-        for region in regions.split(','):
-            regions_list.add(region.strip())
-    return regions_list, fruits
-
-
-def month_percent_generator(headers: list, data: list) -> dict:
-    """
-    Generates a dictionary with month-wise percentages for each fruit.
-
-    @param headers: List of headers from the CSV file.
-    @param data: List of dictionaries containing the CSV data.
-    @returns: A dictionary with month names as keys and dictionaries of
-              fruit percentages as values.
-    """
-    month_percent = {}
-    for header in headers[7:]:
-        percentages = {}
-        for row in data:
-            percentages[row["Fruit"]] = row[header]
-        month_percent[header] = percentages
-    return month_percent
-
 
 if __name__ == "__main__":
     main()
