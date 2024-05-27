@@ -14,11 +14,7 @@ This project analyzes and visualizes data related to the growth, distribution, a
 - Python 3.12.3
 - `matplotlib` library
 
-## Run the main script:
 
-  ```bash
-    python3 harvest.py --fruit Apple
-   ```
 
 ## Usage
 
@@ -37,6 +33,7 @@ python3 test_harvest.py
 ### Additional options:
 
 --fruit: Specify the name of the fruit to analyze
+
 --region: Specify a region instead of a fruit.
 
 
