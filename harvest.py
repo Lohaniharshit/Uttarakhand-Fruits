@@ -65,7 +65,10 @@ def main() -> None:
             soiltype(gen)
         elif args.fruit in fruits:
             month_names = list(month_percent.keys())
-            monthly_data = [int(month_percent[key].get(args.fruit, 0)) for key in month_names]
+            monthly_data = []
+            for key in month_names:
+                fruit_percent = month_percent[key].get(args.fruit, 0)
+                monthly_data.append(int(fruit_percent))
             monthly_fruit_growth(args.fruit, month_names, monthly_data)
     elif args.region:
         if args.region == "All":
