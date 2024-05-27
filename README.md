@@ -14,15 +14,18 @@ This project analyzes and visualizes data related to the growth, distribution, a
 - Python 3.12.3
 - `matplotlib` library
 
+## Run the main script:
+
+    ```bash
+    python3 harvest.py --fruit Apple
+    ```
+
 ## Usage
 
-1. Place your CSV file (`Fruits(final).csv`) in the `Dataset` directory.
-2. Run the script:
-    ```sh
-    python3 harvest.py
-    ```
-3. Follow the prompts to choose between analyzing by region or fruit.
+The main script `harvest.py` accepts either a fruit name or a region name as input.
 
+```bash
+python3 harvest.py --fruit Appl
 
 ## Running Tests
 
