@@ -32,7 +32,7 @@ python3 test_harvest.py
 
 ### Additional options:
 
---fruit: Specify the name of the fruit to analyze
+--fruit: Specify the name of the fruit to analyze.
 
 --region: Specify a region instead of a fruit.
 
