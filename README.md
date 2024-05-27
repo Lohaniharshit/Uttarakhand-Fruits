@@ -16,9 +16,9 @@ This project analyzes and visualizes data related to the growth, distribution, a
 
 ## Run the main script:
 
-    ```bash
+  ```bash
     python3 harvest.py --fruit Apple
-    ```
+   ```
 
 ## Usage
 
@@ -31,8 +31,9 @@ python3 harvest.py --region Shimla
 ## Running Tests
 
 ```bash
-python3 test_harvest.py
+python3 test_harvest.py 
 ```
+
 ### Additional options:
 
 --fruit: Specify the name of the fruit to analyze
