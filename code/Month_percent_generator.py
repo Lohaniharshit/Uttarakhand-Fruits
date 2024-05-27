@@ -11,6 +11,6 @@ def month_percent_generator(headers: list, data: list) -> dict:
     for header in headers[7:]:
         percentages = {}
         for row in data:
-            percentages[row["Fruit"]] = row[header]
+            percentages[row["Fruit"]] = row[header]  # Direct access instead of using get
         month_percent[header] = percentages
     return month_percent
