@@ -1,12 +1,14 @@
 import argparse
 from code.List_data_generator import list_data_generator
 from code.Month_percent_generator import month_percent_generator
-from code.Reader import reader_function
+from code.Reader import lazy_load_csv
 from code.Monthly_plot import monthly_fruit_growth
 from code.Soiltype import soiltype
 from code.Seasonewisefruits import seasonwisefruits
 from code.Plotfruitavailability import plot_fruit_availability
 from code.Getfruitsbyregion import get_fruits_by_region
+
+FILE_PATH = "Dataset/Fruits(final).csv"
 
 def main() -> None:
     """
@@ -15,13 +17,16 @@ def main() -> None:
 
     @returns: None
     """
-    data, headers = reader_function()
+    gen = lazy_load_csv(FILE_PATH)
+    headers = next(gen)  # Extract headers first
+    data = list(gen)  # Collect the rest of the rows in a list
+
     places, fruits = list_data_generator(data)
     month_percent = month_percent_generator(headers, data)
 
     parser = argparse.ArgumentParser(
         description='Provide either a fruit name or a region name'
-        )
+    )
     # Define the mutually exclusive group
     group = parser.add_mutually_exclusive_group(required=True)
     fruits.append('All')
@@ -32,27 +37,25 @@ def main() -> None:
         '--fruit',
         help='Enter name of the fruit',
         choices=fruits
-                        )
+    )
     group.add_argument(
         '--region',
         help='Enter name of the region',
-        choices=places)
+        choices=places
+    )
 
     args = parser.parse_args()
 
     if args.fruit:
-        fruit_query = args.fruit.capitalize()
-        if fruit_query == "All":
+        if args.fruit == "All":
             seasonwisefruits(data)
             soiltype(data)
-
-            
-        elif fruit_query in fruits:
+        elif args.fruit in fruits:
             month_names = list(month_percent.keys())
             monthly_data = []
             for key in month_names:
-                monthly_data.append(int(month_percent[key][fruit_query]))
-            monthly_fruit_growth(fruit_query, month_names, monthly_data)
+                monthly_data.append(int(month_percent[key][args.fruit]))
+            monthly_fruit_growth(args.fruit, month_names, monthly_data)
     elif args.region:
         region_query = args.region.capitalize()
         if region_query == "All":
