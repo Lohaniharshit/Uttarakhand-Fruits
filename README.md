@@ -26,11 +26,12 @@ The main script `harvest.py` accepts either a fruit name or a region name as inp
 
 ```bash
 python3 harvest.py --fruit Apple
+python3 harvest.py --region Shimla
 ```
 ## Running Tests
 
 ```bash
-python test_harvest.py
+python3 test_harvest.py
 ```
 ### Additional options:
 
