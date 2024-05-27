@@ -34,16 +34,18 @@ python test_harvest.py
 ```
 ### Additional options:
 
+--fruit: Specify the name of the fruit to analyze
 --region: Specify a region instead of a fruit.
+
 
 ### Command Line Arguments
 
 The script uses the argparse module to handle command line arguments. Here are the available options:
 
 --fruit: Specify the name of the fruit to analyze.
+
 --region: Specify the name of the region to analyze.
---extra_info: Provide additional optional information.
-```
+
 
 ## Contributing
 
