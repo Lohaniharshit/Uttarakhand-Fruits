@@ -1,14 +1,16 @@
 import csv
-def lazy_load_csv(FILE_PATH):
+ 
+def lazy_load_csv(file_path):
     """
-    Reads the CSV file and returns the data and headers.
-
-    @returns: A tuple containing a list of dictionaries with the data and
-              a list of headers.
+    Generator to lazily load CSV data.
+ 
+    @param file_path: Path to the CSV file.
+    @yields: First, yields the headers as a list, then yields each row as a dictionary.
     """
-    with open(FILE_PATH, mode='r') as csvfile:
+    with open(file_path, mode='r') as csvfile:
         reader = csv.DictReader(csvfile)
         headers = reader.fieldnames
         yield headers  # First, yield the headers
         for row in reader:
-            yield row  # Then, yield each row as a dictionary
+            yield row  # Then, yield each row
+
