@@ -25,8 +25,8 @@ This project analyzes and visualizes data related to the growth, distribution, a
 The main script `harvest.py` accepts either a fruit name or a region name as input.
 
 ```bash
-python3 harvest.py --fruit Appl
-
+python3 harvest.py --fruit Apple
+```
 ## Running Tests
 
 ```bash
