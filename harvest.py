@@ -57,13 +57,12 @@ def main() -> None:
                 monthly_data.append(int(month_percent[key][args.fruit]))
             monthly_fruit_growth(args.fruit, month_names, monthly_data)
     elif args.region:
-        region_query = args.region.capitalize()
-        if region_query == "All":
+        if args.region == "All":
             seasonwisefruits(data)
             soiltype(data)
         else:
-            fruits_in_region = get_fruits_by_region(data, region_query)
-            print(f"Fruits in {region_query}: {', '.join(fruits_in_region)}")
+            fruits_in_region = get_fruits_by_region(data, args.region)
+            print(f"Fruits in {args.region}: {', '.join(fruits_in_region)}")
             plot_fruit_availability(data, fruits_in_region, month_percent)
 
 if __name__ == "__main__":
