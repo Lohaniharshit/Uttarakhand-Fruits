@@ -7,23 +7,32 @@ from code.Soiltype import soiltype
 from code.Seasonewisefruits import seasonwisefruits
 from code.Plotfruitavailability import plot_fruit_availability
 from code.Getfruitsbyregion import get_fruits_by_region
-
+ 
 FILE_PATH = "Dataset/Fruits(final).csv"
-
+ 
 def main() -> None:
     """
     Main function to handle fruit or region queries and generate respective
     plots and data.
-
+ 
     @returns: None
     """
     gen = lazy_load_csv(FILE_PATH)
     headers = next(gen)  # Extract headers first
-    data = list(gen)  # Collect the rest of the rows in a list
-
-    places, fruits = list_data_generator(data)
-    month_percent = month_percent_generator(headers, data)
-
+ 
+    # Using generator directly in list_data_generator
+    places, fruits = list_data_generator(gen)
+ 
+    # Rewind the generator to use it again for month percentages calculation
+    gen = lazy_load_csv(FILE_PATH)
+    next(gen)  # Skip headers again
+ 
+    # Rewind the generator again for month_percent_generator
+    gen = lazy_load_csv(FILE_PATH)
+    next(gen)  # Skip headers again
+ 
+    month_percent = month_percent_generator(headers, gen, lazy_load_csv, FILE_PATH)
+ 
     parser = argparse.ArgumentParser(
         description='Provide either a fruit name or a region name'
     )
@@ -31,7 +40,7 @@ def main() -> None:
     group = parser.add_mutually_exclusive_group(required=True)
     fruits.append('All')
     places.add('All')
-
+ 
     # Add the arguments to the group
     group.add_argument(
         '--fruit',
@@ -43,28 +52,40 @@ def main() -> None:
         help='Enter name of the region',
         choices=places
     )
-
+ 
     args = parser.parse_args()
-
+ 
     if args.fruit:
         if args.fruit == "All":
-            seasonwisefruits(data)
-            soiltype(data)
+            gen = lazy_load_csv(FILE_PATH)
+            next(gen)  # Skip headers again
+            seasonwisefruits(gen)
+            gen = lazy_load_csv(FILE_PATH)
+            next(gen)  # Skip headers again
+            soiltype(gen)
         elif args.fruit in fruits:
             month_names = list(month_percent.keys())
             monthly_data = []
             for key in month_names:
-                monthly_data.append(int(month_percent[key][args.fruit]))
+                fruit_percent = month_percent[key].get(args.fruit, 0)
+                monthly_data.append(int(fruit_percent))
             monthly_fruit_growth(args.fruit, month_names, monthly_data)
     elif args.region:
-        region_query = args.region.capitalize()
-        if region_query == "All":
-            seasonwisefruits(data)
-            soiltype(data)
+        if args.region == "All":
+            gen = lazy_load_csv(FILE_PATH)
+            next(gen)  # Skip headers again
+            seasonwisefruits(gen)
+            gen = lazy_load_csv(FILE_PATH)
+            next(gen)  # Skip headers again
+            soiltype(gen)
         else:
-            fruits_in_region = get_fruits_by_region(data, region_query)
-            print(f"Fruits in {region_query}: {', '.join(fruits_in_region)}")
-            plot_fruit_availability(data, fruits_in_region, month_percent)
-
+            gen = lazy_load_csv(FILE_PATH)
+            next(gen)  # Skip headers again
+            fruits_in_region = get_fruits_by_region(gen, args.region)
+            print(f"Fruits in {args.region}: {', '.join(fruits_in_region)}")
+            gen = lazy_load_csv(FILE_PATH)
+            next(gen)  # Skip headers again
+            plot_fruit_availability(gen, fruits_in_region, month_percent)
+ 
 if __name__ == "__main__":
     main()

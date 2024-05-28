@@ -14,21 +14,37 @@ This project analyzes and visualizes data related to the growth, distribution, a
 - Python 3.12.3
 - `matplotlib` library
 
+
+
 ## Usage
 
-1. Place your CSV file (`Fruits(final).csv`) in the `Dataset` directory.
-2. Run the script:
-    ```sh
-    python3 harvest.py
-    ```
-3. Follow the prompts to choose between analyzing by region or fruit.
+The main script `harvest.py` accepts either a fruit name or a region name as input.
 
-
+```bash
+python3 harvest.py --fruit Apple
+python3 harvest.py --region Shimla
+```
 ## Running Tests
 
 ```bash
-python test_harvest.py
+python3 test_harvest.py 
 ```
+
+### Additional options:
+
+--fruit: Specify the name of the fruit to analyze.
+
+--region: Specify a region instead of a fruit.
+
+
+### Command Line Arguments
+
+The script uses the argparse module to handle command line arguments. Here are the available options:
+
+--fruit: Specify the name of the fruit to analyze.
+
+--region: Specify the name of the region to analyze.
+
 
 ## Contributing
 
