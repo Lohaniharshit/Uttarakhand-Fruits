@@ -10,15 +10,16 @@ def month_percent_generator(headers: list, data_gen, lazy_load_csv_func, file_pa
               fruit percentages as values.
     """
     month_percent = {}
-    for header in headers[7:]:  # Assuming the first 7 columns are not months
-        percentages = {}
-        for row in data_gen:
-            fruit = row["Fruit"]
-            percentage = row.get(header, 0)  # Default to 0 if not present
-            percentages[fruit] = int(percentage) if percentage else 0
-        month_percent[header] = percentages
-        # Rewind generator to the start for the next header
-        data_gen = lazy_load_csv_func(file_path)
-        next(data_gen)  # Skip headers
-    return month_percent
+    if headers is not None:
+        for header in headers[7:]:  # Assuming the first 7 columns are not months
+            percentages = {}
+            for row in data_gen:
+                fruit = row["Fruit"]
+                percentage = row.get(header, 0)  # Default to 0 if not present
+                percentages[fruit] = int(percentage) if percentage else 0
+            month_percent[header] = percentages
+            # Rewind generator to the start for the next header
+            data_gen = lazy_load_csv_func(file_path)
+            next(data_gen)  # Skip headers
+        return month_percent
 
