@@ -23,10 +23,7 @@ def main() -> None:
     # Using generator directly in list_data_generator
     places, fruits = list_data_generator(gen)
  
-    # Rewind the generator to use it again for month percentages calculation
-    gen = lazy_load_csv(FILE_PATH)
-    next(gen)  # Skip headers again
- 
+
     # Rewind the generator again for month_percent_generator
     gen = lazy_load_csv(FILE_PATH)
     next(gen)  # Skip headers again
@@ -87,5 +84,4 @@ def main() -> None:
             next(gen)  # Skip headers again
             plot_fruit_availability(gen, fruits_in_region, month_percent)
  
-if __name__ == "__main__":
-    main()
+main()
