@@ -24,5 +24,3 @@ class TestBarGraph(unittest.TestCase):
         self.assertEqual(listoffruits, ['Apple'])
 
 
-if __name__ == "__main__":
-    unittest.main()
