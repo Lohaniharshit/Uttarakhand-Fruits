@@ -82,6 +82,6 @@ def main() -> None:
             print(f"Fruits in {args.region}: {', '.join(fruits_in_region)}")
             gen = lazy_load_csv(FILE_PATH)
             next(gen)  # Skip headers again
-            plot_fruit_availability(gen, fruits_in_region, month_percent)
+            plot_fruit_availability(gen, fruits_in_region, month_percent, args.region)
  
 main()
