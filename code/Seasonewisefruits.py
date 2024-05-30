@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+from collections import defaultdict
+
 def seasonwisefruits(data) -> None:
     """
     Analyzes the distribution of fruits across different seasons and
@@ -7,22 +9,12 @@ def seasonwisefruits(data) -> None:
     @param data: List of dictionaries representing rows of the CSV file.
     @returns: None
     """
-    winter = 0
-    summer = 0
-    spring = 0
+    ratio_dict = defaultdict(int)
 
     for entry in data:
-        if entry["Season"] == "Winter":
-            winter += 1
-        elif entry["Season"] == "Summer":
-            summer += 1
-        elif entry["Season"] == "Spring":
-            spring += 1
+        ratio_dict[entry["Season"]]+=1
 
-    labels = ["Winter", "Summer", "Spring"]
-    ratios = [winter, summer, spring]
-
-    plt.pie(ratios, labels=labels, autopct="%1.1f%%")
+    plt.pie(ratio_dict.values(), labels=ratio_dict.keys(), autopct="%1.1f%%")
     plt.title("Season-wise Distribution of Fruits")
     plt.show()
 

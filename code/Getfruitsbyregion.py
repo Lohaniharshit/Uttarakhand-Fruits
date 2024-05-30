@@ -17,5 +17,4 @@ def get_fruits_by_region(data, query_region: str):
             if region.lower().strip() == query_region:
                 fruits_in_region.append(fruit["Fruit"])
                 break
-
     return fruits_in_region

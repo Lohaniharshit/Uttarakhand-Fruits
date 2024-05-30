@@ -1,4 +1,4 @@
-def list_data_generator(data_gen) -> tuple[set, list]:
+def Fruit_region_list(data_gen) -> tuple[set, list]:
     """
     Generates lists of places and fruits from the data generator.
  

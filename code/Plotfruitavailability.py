@@ -11,6 +11,9 @@ def plot_fruit_availability(reader, fruit_list, month_percent, region_name) -> N
                           each fruit.
     @returns: None
     """
+    month_names = [] 
+    for key in month_percent:
+        month_names.append(key)
     w=0 
     bar=[]
     # Create a figure with a large size for full screen display
@@ -18,9 +21,7 @@ def plot_fruit_availability(reader, fruit_list, month_percent, region_name) -> N
     for row in reader:
         if row['Fruit'].lower() in [fruit.lower() for fruit in fruit_list]:
             monthly_data = []
-            month_names = []
             for key in month_percent:
-                month_names.append(key)
                 monthly_data.append(int(month_percent[key][row["Fruit"]]))
             bar=[x for x in range(1,len(month_names)+1)]
             bar2=[x+w for x in bar]
