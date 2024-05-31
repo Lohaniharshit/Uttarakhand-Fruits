@@ -6,8 +6,8 @@ def lazy_load_csv(request):
     """
     Generator to lazily load CSV data.
  
-    @param file_path: Path to the CSV file.
-    @yields: First, yields the headers as a list, then yields each row as a dictionary.
+    @param request: Decides whether to yield headers or data 
+    @yields: Yields the headers as a list or yields each row as a dictionary.
     """
     with open(FILE_PATH, mode='r') as csvfile:
         reader = csv.DictReader(csvfile)

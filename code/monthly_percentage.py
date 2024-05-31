@@ -5,7 +5,6 @@ def month_percentage(header_obj: list, data_gen, lazy_load_csv_func) -> dict:
     @param headers: List of headers from the CSV file.
     @param data_gen: Generator yielding dictionaries containing the CSV data.
     @param lazy_load_csv_func: Function to lazily load the CSV file.
-    @param file_path: Path to the CSV file.
     @returns: A dictionary with month names as keys and dictionaries of
               fruit percentages as values.
     """

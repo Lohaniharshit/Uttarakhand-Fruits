@@ -3,9 +3,9 @@ def monthly_fruit_growth(fruit_query: str, month_names, monthly_data) -> None:
     """
     Plot the monthly growth percentage of a given fruit.
 
-    @param n: Name of the fruit.
-    @param p: List of months.
-    @param k: List of growth percentages corresponding to the months.
+    @param fruit_query: Name of the fruit.
+    @param month_names: List of months.
+    @param monthly_data: List of growth percentages corresponding to the months.
     @returns: None
     """
     plt.bar(month_names, monthly_data, color="skyblue")

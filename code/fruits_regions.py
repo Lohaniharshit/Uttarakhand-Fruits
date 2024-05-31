@@ -1,6 +1,6 @@
 def Fruit_region_list(data_gen) -> tuple[set, list]:
     """
-    Generates lists of places and fruits from the data generator.
+    Returns lists of places and fruits from the data generator.
  
     @param data_gen: Generator yielding dictionaries containing the CSV data.
     @returns: A tuple containing a set of regions and a list of fruits.

@@ -9,6 +9,7 @@ def plot_fruit_availability(reader, fruit_list, month_percent, region_name) -> N
     @param fruit_list: List of fruits to plot.
     @param month_percent: Dictionary with monthly percentage data for
                           each fruit.
+    @param region_name: Name of the region.                      
     @returns: None
     """
     month_names = [] 
@@ -16,8 +17,8 @@ def plot_fruit_availability(reader, fruit_list, month_percent, region_name) -> N
         month_names.append(key)
     width = 0 
     bar0 = []
-    # Create a figure with a large size for full screen display
-    fig, ax = plt.subplots(figsize=(15, 8)) 
+    # For full screen display
+    plt.subplots(figsize=(15, 8)) 
     for row in reader:
         if row['Fruit'].lower() in [fruit.lower() for fruit in fruit_list]:
             monthly_data = []
