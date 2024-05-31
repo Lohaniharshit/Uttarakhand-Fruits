@@ -1,12 +1,12 @@
 import argparse
-from code.List_data_generator import Fruit_region_list
-from code.Month_percent_generator import month_percentage
-from code.Reader import lazy_load_csv
-from code.Monthly_plot import monthly_fruit_growth
-from code.Soiltype import soiltype
-from code.Seasonewisefruits import seasonwisefruits
-from code.Plotfruitavailability import plot_fruit_availability
-from code.Getfruitsbyregion import get_fruits_by_region
+from code.fruits_regions import Fruit_region_list
+from code.monthly_percentage import month_percentage
+from code.csv_reader import lazy_load_csv
+from code.plot_fruit import monthly_fruit_growth
+from code.soil import soiltype
+from code.season import seasonwisefruits
+from code.plot_region import plot_fruit_availability
+from code.fruits_by_region import get_fruits_by_region
  
 def main() -> None:
     """

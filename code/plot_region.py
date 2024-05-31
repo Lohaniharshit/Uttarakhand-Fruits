@@ -1,4 +1,4 @@
-from code.Monthly_plot import monthly_fruit_growth
+from code.plot_fruit import monthly_fruit_growth
 import matplotlib.pyplot as plt
 
 def plot_fruit_availability(reader, fruit_list, month_percent, region_name) -> None:
@@ -14,8 +14,8 @@ def plot_fruit_availability(reader, fruit_list, month_percent, region_name) -> N
     month_names = [] 
     for key in month_percent:
         month_names.append(key)
-    w=0 
-    bar=[]
+    width = 0 
+    bar0 = []
     # Create a figure with a large size for full screen display
     fig, ax = plt.subplots(figsize=(15, 8)) 
     for row in reader:
@@ -23,10 +23,10 @@ def plot_fruit_availability(reader, fruit_list, month_percent, region_name) -> N
             monthly_data = []
             for key in month_percent:
                 monthly_data.append(int(month_percent[key][row["Fruit"]]))
-            bar=[x for x in range(1,len(month_names)+1)]
-            bar2=[x+w for x in bar]
-            w+=0.2
-            plt.bar(bar2, monthly_data, 0.2, label=row['Fruit'])  
+            bar0=[x for x in range(1,len(month_names)+1)]
+            bar=[x+width for x in bar0]
+            width+=0.2
+            plt.bar(bar, monthly_data, 0.2, label=row['Fruit'])  
     plt.xlabel("Months")                                 
     plt.ylabel("Percentage Growth")                      
     plt.title(f"Month wise Growth Percentage of Fruits in {region_name} Region")     
