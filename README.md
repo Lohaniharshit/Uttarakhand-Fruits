@@ -18,11 +18,11 @@ This project analyzes and visualizes data related to the growth, distribution, a
 
 ## Usage
 
-The main script `harvest.py` accepts either a fruit name or a region name as input.
+The main script `harvest.py` accepts either one or more fruit names or a region names as input.
 
 ```bash
-python3 harvest.py --fruit Apple
-python3 harvest.py --region Shimla
+python3 harvest.py --fruit Apple Banana
+python3 harvest.py --region Dehradun Rishikesh
 ```
 ## Running Tests
 
@@ -32,18 +32,18 @@ python3 test_harvest.py
 
 ### Additional options:
 
---fruit: Specify the name of the fruit to analyze.
+--fruit: Specify the name(s) of the fruit(s) to analyze.
 
---region: Specify a region instead of a fruit.
+--region: Specify region(s) instead of a fruit(s).
 
 
 ### Command Line Arguments
 
 The script uses the argparse module to handle command line arguments. Here are the available options:
 
---fruit: Specify the name of the fruit to analyze.
+--fruit: Specify the name of the fruit(s) to analyze.
 
---region: Specify the name of the region to analyze.
+--region: Specify the name of the region(s) to analyze.
 
 
 ## Contributing
