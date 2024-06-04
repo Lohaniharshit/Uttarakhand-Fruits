@@ -1,6 +1,6 @@
 import csv
 import unittest
-from harvest import get_fruits_by_region
+from code.Getfruitsbyregion import get_fruits_by_region
 
 FILE_PATH = "Dataset/Fruits(final).csv"
 
